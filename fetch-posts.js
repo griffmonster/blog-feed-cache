@@ -13,7 +13,23 @@ async function fetchAllEntries() {
                     const entries = data.feed.entry;
 
                     if (entries && entries.length > 0) {
-                        allEntries = allEntries.concat(entries);
+						
+						// STRIPPING LOGIC: Only map the fields we actually need
+						const simplifiedEntries = entries.map(entry => {
+						  return {
+							title: entry.title.$t,
+							url: entry.link.find(l => l.rel === 'alternate').href,
+							published: entry.published.$t,
+							updated: entry.updated.$t,
+							labels: entry.category ? entry.category.map(cat => cat.term) : [],
+							// Optional: Grab the first image if it exists
+							thumb: entry.media$thumbnail ? entry.media$thumbnail.url : null,
+							// Grab a small snippet for the search preview
+							snippet: entry.summary.$t.substring(0, 180).replace(/<[^>]*>/g, '') 
+						  };
+						});
+
+						allEntries = allEntries.concat(simplifiedEntries);
                         currentIndex += entries.length;                       
                     } else {
                         keepFetching = false;
