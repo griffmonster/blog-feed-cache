@@ -8,7 +8,7 @@ async function fetchAllEntries() {
 
             while (keepFetching) {
                 try {
-                    const response = await fetch(`${blogUrl}/feeds/posts/default?alt=json&start-index=${currentIndex}&max-results=150`);
+                    const response = await fetch(`${blogUrl}/feeds/posts/summary?alt=json&start-index=${currentIndex}&max-results=150`);
                     const data = await response.json();
                     const entries = data.feed.entry;
 
