@@ -4,8 +4,7 @@ async function fetchAllEntries() {
             let allEntries = [];
             let currentIndex = 1; 
             let keepFetching = true;
-            const stats = document.getElementById('stats');
-			const blogUrl = "https://griffmonster-walks.blogspot.com";
+            const blogUrl = "https://griffmonster-walks.blogspot.com";
 
             while (keepFetching) {
                 try {
@@ -15,8 +14,7 @@ async function fetchAllEntries() {
 
                     if (entries && entries.length > 0) {
                         allEntries = allEntries.concat(entries);
-                        currentIndex += entries.length;
-                        stats.innerHTML = `Scanning post metadata... (${allEntries.length} found)`;
+                        currentIndex += entries.length;                       
                     } else {
                         keepFetching = false;
                     }
