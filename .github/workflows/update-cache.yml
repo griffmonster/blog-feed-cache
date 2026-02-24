@@ -1,0 +1,29 @@
+name: Refresh Blogger Cache
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs every night at midnight
+  workflow_dispatch: # Allows you to run it manually with a button click
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Fetch and Save
+        run: node fetch-posts.js
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Blogger Bot"
+          git config --global user.email "bot@github.com"
+          git add data.json
+          git commit -m "Update Blogger cache" || exit 0
+          git push
+          
