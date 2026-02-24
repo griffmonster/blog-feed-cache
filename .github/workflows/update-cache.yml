@@ -27,3 +27,5 @@ jobs:
           git commit -m "Update Blogger cache" || exit 0
           git push
           
+      - name: Purge CDN Cache
+        run: curl -s https://purge.jsdelivr.net/gh/griffmonster/blog-feed-cache@main/data.json
