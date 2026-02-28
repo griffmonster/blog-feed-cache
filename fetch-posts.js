@@ -17,11 +17,11 @@ async function fetchAllEntries() {
 						// STRIPPING LOGIC: Only map the fields we actually need
 						const simplifiedEntries = entries.map(entry => {
 						  return {
-							title: entry.title.$t,
+							title: entry.title ? entry.title.$t : '',
 							url: entry.link.find(l => l.rel === 'alternate').href,
-							published: entry.published.$t,
-							updated: entry.updated.$t,
-							georss$point:  entry.georss$point.$t,
+							published: entry.published ? entry.published.$t : '',
+							updated: entry.updated ? entry.updated.$t : '',
+							georss$point:  entry.georss$point ? entry.georss$point.$t : '',
 							labels: entry.category ? entry.category.map(cat => cat.term) : [],
 							// Optional: Grab the first image if it exists
 							thumb: entry.media$thumbnail ? entry.media$thumbnail.url : null,
