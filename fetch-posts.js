@@ -21,6 +21,7 @@ async function fetchAllEntries() {
 							url: entry.link.find(l => l.rel === 'alternate').href,
 							published: entry.published.$t,
 							updated: entry.updated.$t,
+							georss$point:  entry.georss$point.$t,
 							labels: entry.category ? entry.category.map(cat => cat.term) : [],
 							// Optional: Grab the first image if it exists
 							thumb: entry.media$thumbnail ? entry.media$thumbnail.url : null,
